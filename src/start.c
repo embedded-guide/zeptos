@@ -23,7 +23,7 @@ static void _start(void) {
     main();
 }
 
-static void *_vectors[16] __attribute__((section("vector_table"), unused)) = {
+static void *_vectors[16] __attribute__((section("zeptos_vectors"), unused)) = {
     &_stack_top,
     _start
 };

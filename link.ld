@@ -6,8 +6,11 @@ MEMORY {
 }
 
 SECTIONS {
+    zeptos_vectors : {
+        KEEP(*(zeptos_vectors));
+    } > flash
+
     .text : {
-        KEEP(*(vector_table));
         *(.text .text.*);
         *(.rodata .rodata.*);
     } > flash
@@ -21,10 +24,13 @@ SECTIONS {
 
     .bss : {
         _bss_start = .;
+        *(.bss .bss.*);
+        _bss_end = .;
+    } > sram
+
+    zeptos_stack (NOLOAD): {
         _stack_bottom = .;
         . += _stack_size;
         _stack_top = .;
-        *(.bss .bss.*);
-        _bss_end = .;
     } > sram
 }
